@@ -32,7 +32,7 @@ public class EmitLogTopic {
         /* 声明转发器
          * 类型:[Direct, Topic, Headers, Fanout]
          * topic : 广播到所有它所知道的队列, 
-         * 			条件为 指定的所有转发器内 指定routingkey 可以使用表示符 来筛选routingkey 
+         * 			条件为 指定的所有转发器内指定路由(可以使用标识符来筛选路由)。
          * 				*可以匹配一个标识符
          *				#可以匹配0个或多个标识符
          * */

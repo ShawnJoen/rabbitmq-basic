@@ -33,7 +33,7 @@ public class EmitLogDirect {
         /* 声明转发器
          * 类型:[Direct, Topic, Headers, Fanout]
          * direct: 广播到所有它所知道的队列, 
-         * 			条件为 指定的所有转发器内 指定routingkey
+         * 			条件为 指定的所有转发器内指定路由。
          * */
         channel.exchangeDeclare(EXCHANGE_NAME, "direct");  
 

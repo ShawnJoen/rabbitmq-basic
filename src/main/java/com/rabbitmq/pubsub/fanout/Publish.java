@@ -31,7 +31,7 @@ public class Publish {
         /* 声明转发器
          * 类型:[Direct, Topic, Headers, Fanout]
          * fanout: 广播到所有它所知道的队列, 
-         * 			条件为 指定的所有转发器 内所有队列
+         * 			条件为 指定的所有转发器。
          * */
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");  
 
