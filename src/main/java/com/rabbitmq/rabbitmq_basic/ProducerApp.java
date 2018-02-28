@@ -19,7 +19,7 @@ public class ProducerApp {
     private static final String MQ_PASSWORD = "";
     private static final String MQ_BROKER_URL = "localhost";
     private static final int MQ_PORT = 5672;
-    private static final String SUBJECT = "CustomQueueKEY";
+    private static final String QUEUE_SUBJECT = "CustomQueueKEY";
 	public static void main(String[] args) throws IOException, TimeoutException {
 
         ConnectionFactory factory = new ConnectionFactory();  
@@ -33,7 +33,7 @@ public class ProducerApp {
         
         //声明队列
         boolean durable = true;//消息持久化 
-        channel.queueDeclare(SUBJECT, durable, false, false, null);  
+        channel.queueDeclare(QUEUE_SUBJECT, durable, false, false, null);  
         //发送10条消息
         for (int i = 10; i >= 0; i--) {
         	
@@ -46,12 +46,12 @@ public class ProducerApp {
             
             String message = dots + dots.length();  
             /*
-             * String exchange, 
+             * 转发器名称
              * 消息队列KEY
              * MessageProperties.PERSISTENT_TEXT_PLAIN:消息持久化  
              * 消息(字节码)
              * */
-            channel.basicPublish("", SUBJECT, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));  
+            channel.basicPublish("", QUEUE_SUBJECT, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));  
             System.out.println("发送消息: " + message);  
         }
         

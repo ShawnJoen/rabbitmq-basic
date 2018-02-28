@@ -22,7 +22,7 @@ public class ConsumerApp {
     private static final String MQ_PASSWORD = "";
     private static final String MQ_BROKER_URL = "localhost";
     private static final int MQ_PORT = 5672;
-	private static final String SUBJECT = "CustomQueueKEY";
+	private static final String QUEUE_SUBJECT = "CustomQueueKEY";
 	public static void main(String[] args) throws IOException, TimeoutException {
         //区分不同工作进程的输出
         final int hashCode = ConsumerApp.class.hashCode();
@@ -38,7 +38,7 @@ public class ConsumerApp {
         
         //声明队列 
         boolean durable = true; //消息持久化  
-        channel.queueDeclare(SUBJECT, durable, false, false, null);
+        channel.queueDeclare(QUEUE_SUBJECT, durable, false, false, null);
         System.out.println(hashCode + " [*] Waiting for messages. To exit press CTRL+C");
         //设置最大服务转发消息数量  
         int prefetchCount = 1;//一个消费者同一时间只能拿一条消息 意思是 消费者空闲的时候 才能拿消息进行处理
@@ -65,7 +65,8 @@ public class ConsumerApp {
             }
         };
         //指定消费队列  
-        boolean ack = false; //打开应答机制  
-        channel.basicConsume(SUBJECT, ack, consumer);  
+        boolean ack = false;//设置 false 的话 就是 打开应答机制  - false处理完消息 最后需要手动 basicAck 发送应答处理
+		   					//反之 true为自动应答
+        channel.basicConsume(QUEUE_SUBJECT, ack, consumer);  
 	}
 }
